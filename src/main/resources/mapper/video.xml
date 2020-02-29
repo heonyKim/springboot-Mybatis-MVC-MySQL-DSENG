@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dseng.repository.VideoRepository">
+	<select id="productMenu" resultType="com.example.dseng.model.Product">
+		select categoryNumb,categoryName,count(*) as categoryCount 
+		from product group by categoryName, categoryNumb
+	</select>
+	
+	<select id="VideoList" resultType="com.example.dseng.model.Video">
+		select * from video
+	</select>
+	
+	<select id="videoDetail" resultType="com.example.dseng.model.Video">
+		select * from video where id=#{id}
+	</select>
+	
+	<insert id="videoWrite">
+		insert into video values(null,#{title},#{description},now());
+	</insert>
+	
+	<select id="videoUpdateForm" resultType="com.example.dseng.model.Video">
+		select * from video where id=#{id}
+	</select>
+	
+	<update id="videoUpdate">
+		update video set title=#{title},description=#{description} where id=#{id}
+	</update>
+	
+	<delete id="videoDelete">
+		delete from video where id=#{id};
+	</delete>
+	
+</mapper>

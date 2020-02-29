@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dseng.repository.ResultRepository">
+
+	<select id="resultList" resultType="com.example.dseng.model.Result">
+		select @rownum:=@rownum+1 as num,title from result,(select @rownum:=0) R order by num desc
+	</select>
+	
+	<insert id="resultWrite">
+		insert into result values(null,#{title},now())
+	</insert>
+	
+</mapper>

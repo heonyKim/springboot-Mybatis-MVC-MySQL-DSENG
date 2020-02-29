@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.dseng.repository.ProductRepository">
+	<select id="productMenu" resultType="com.example.dseng.model.Product">
+		select categoryNumb,categoryName,count(*) as categoryCount 
+		from product group by categoryName, categoryNumb
+	</select>
+	
+	<select id="productList" resultType="com.example.dseng.model.Product">
+		select * from product where categoryNumb=#{categoryNumb}
+	</select>
+
+	<select id="produdctDetail" resultType="com.example.dseng.model.Product">
+		select * from product where id=#{id} and categoryNumb=#{categoryNumb}
+	</select>
+	
+	<select id="loadProductCategoryName" resultType="com.example.dseng.model.Product">
+		select categoryName from product where categoryNumb=#{categoryNumb} group by categoryName;
+	</select>
+	
+	<insert id="productWrite">
+		insert into product values(null,#{productName},#{description},#{categoryNumb},#{categoryName},now())	
+	</insert>
+	
+	<select id="productUpdateForm" resultType="com.example.dseng.model.Product">
+		select * from product where id=#{id}
+	</select>
+	
+	<update id="productUpdate">
+		update product set productName=#{productName},description=#{description},categoryNumb=#{categoryNumb},categoryName=#{categoryName} where id=#{id}
+	</update>
+	
+	<delete id="productDelete">
+		delete from product where id=#{id};
+	</delete>
+	
+</mapper>
